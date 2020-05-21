@@ -1,6 +1,6 @@
 import requests
 import json
-
+from t2s import text_to_speech
 
 api_key = '4221a4f4421fb538b2a650d9c9a3823f'
 
@@ -15,9 +15,13 @@ def set_city(city):
     x = response.json() 
 
     if x["cod"] != "404": 
-        print("city set")
+        text_to_speech("your city is set")
+        valid = True
     else:
-        print("invalid city name")
+        text_to_speech("Invalid city name, give another one.")
+        valid = False
+
+    return valid
 
 
 def weather(city_name):

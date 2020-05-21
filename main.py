@@ -1,11 +1,15 @@
 import speech_recognition as sr 
 from time_date import dt
-from weather import weather
+from weather import weather,set_city
+from t2s import text_to_speech
 
 r = sr.Recognizer()
 m = sr.Microphone()
 
-city = input("enter the city you live in:")
+valid = False
+while not valid:
+    city = input("enter the city you live in:")
+    valid = set_city
 
 start = True
 
@@ -22,16 +26,16 @@ while(start):
             Mytext = Mytext.lower()
             print(Mytext)
             if("time" in Mytext):
-                date, time = dt()
-                print(date)
-            
+                date_time = dt()
+                text_to_speech(" the time is " + str(date_time))
+                       
             if("date" in Mytext):
-                date, time = dt()
-                print(date)
+                date_time = dt()
+                text_to_speech(" the time is " + str(date_time))
 
             if("weather" in Mytext):
                 temperature, humidity, pressure, cond = weather(city)
-            
+                text_to_speech("the temperature is " + str(temperature) + "and" + str(cond))
 
             if(Mytext[len(Mytext)-4:] == 'quit'):
                 start = False
